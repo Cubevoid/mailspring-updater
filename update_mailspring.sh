@@ -1,8 +1,8 @@
 #!/bin/bash
-cd /home/colin/Downloads
+cd ~/Downloads
 rm mailspring-*
-echo "Removing old version..."
-dnf remove mailspring -y
+echo "Removed old version..."
+sudo dnf remove mailspring -y
 echo "Downloading latest Mailspring release..."
 curl -s https://api.github.com/repos/Foundry376/Mailspring/releases/latest \
   | grep browser_download_url.*rpm \
@@ -10,6 +10,6 @@ curl -s https://api.github.com/repos/Foundry376/Mailspring/releases/latest \
   | tr -d \" \
   | wget -qi -
 echo "Installing new version..."
-dnf install mailspring* -y
+sudo dnf install mailspring* -y
 rm mailspring-*
 echo "Removed junk files."

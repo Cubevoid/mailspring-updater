@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# RUN THIS SCRIPT AS SUDO
+if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
 if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd

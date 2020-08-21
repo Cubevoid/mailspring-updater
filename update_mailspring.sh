@@ -1,7 +1,5 @@
 #!/bin/bash
 
-if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
-
 if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd
     . /etc/os-release
@@ -24,7 +22,7 @@ echo "Removed old version..."
 
 if [ $OS == "Fedora" ]; then
 
-    dnf remove mailspring -y
+    sudo dnf remove mailspring -y
     echo "Downloading latest Mailspring release..."
     curl -s https://api.github.com/repos/Foundry376/Mailspring/releases/latest \
       | grep browser_download_url.*rpm \
@@ -32,11 +30,11 @@ if [ $OS == "Fedora" ]; then
       | tr -d \" \
       | wget -qi -
     echo "Installing new version..."
-    dnf install mailspring* -y
+    sudo dnf install mailspring* -y
 
-elif [ $OS == "Ubuntu" -o $OS == "Debian" ]; then
+elif [ $OS == "Ubuntu" -o $OS == "Debian" -o $OS == "Pop!_OS" ]; then
     
-    apt remove mailspring -y
+    sudo apt remove mailspring -y
     echo "Downloading latest Mailspring release..."
     curl -s https://api.github.com/repos/Foundry376/Mailspring/releases/latest \
       | grep browser_download_url.*deb \
@@ -44,7 +42,8 @@ elif [ $OS == "Ubuntu" -o $OS == "Debian" ]; then
       | tr -d \" \
       | wget -qi -
     echo "Installing new version..."
-    apt install mailspring* -y
+    sudo apt install ./mailspring* -y
+
 fi
 
 rm mailspring-*
